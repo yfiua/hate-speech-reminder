@@ -1,45 +1,32 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Laravel</title>
+<?php
+/**
+* Andrew's Hatebase script : Simple script to retrieve results from Hatebase API
+*
+* @category Awesomeness
+* @date 3/03/2014
+* @author Andrew Welters <awelters@hugmehugyou.org>
+* @license http://opensource.org/licenses/MIT The MIT License
+* @link http://www.hatebase.org/connect_api
+* @link https://github.com/awelters/hatebase
+*/
+use Hatebase\HatebaseAPI;
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+$settings = array(
+    'key' => '1d8faaec69276f17a8da885fd4a6c0b8',
+    'version' => '3' //optional
+);
+$hatebase = new HatebaseAPI($settings);
 
-        <style>
-            html, body {
-                height: 100%;
-            }
+//See http://www.hatebase.org/connect_api for filter options
+$filters = array('about_nationality' => 1, 'language' => 'eng', 'vocabulary' => 'nigga');
+$output = 'xml'; //either 'xml' or 'json', 'xml' is faster
+$query_type = 'vocabulary'; //either 'vocabulary' or 'sightings'
 
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
+try {
+	$result = $hatebase->performRequest($filters, $output, $query_type);
+	print_r($result);
+}
+catch(Exception $e) {
+	echo 'Error: '.$e;
+}
 
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 96px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">Laravel 5</div>
-            </div>
-        </div>
-    </body>
-</html>
