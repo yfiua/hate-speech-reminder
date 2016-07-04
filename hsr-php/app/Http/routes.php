@@ -23,4 +23,5 @@ Route::get('/admin-config', function () {
     return view('admin-config');
 });
 
+Route::post('/post-message', 'MainController@postMessage');
 Route::post('/admin-config', 'MainController@postAdminConfig');
