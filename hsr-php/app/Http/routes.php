@@ -19,6 +19,11 @@ Route::get('/user', function () {
     return view('user');
 });
 
+Route::get('/forum', function () {
+    return view('forum');
+});
+
+
 Route::get('/admin-config', function () {
     return view('admin-config');
 });
