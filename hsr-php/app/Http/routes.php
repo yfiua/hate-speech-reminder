@@ -12,5 +12,15 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
+Route::get('/user', function () {
+    return view('user');
+});
+
+Route::get('/admin-config', function () {
+    return view('admin-config');
+});
+
+Route::post('/admin-config', 'MainController@postAdminConfig');
