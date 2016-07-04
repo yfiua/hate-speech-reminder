@@ -1,5 +1,6 @@
 import pandas as pd
 import nltk
+import pickle
 from textblob.classifiers import NaiveBayesClassifier
 
 def do_smth(x):
@@ -8,14 +9,14 @@ def do_smth(x):
     mes_annot=(tokens,str(x.Insult))
     return mes_annot
 
+def save_object(obj, filename):
+    with open(filename, 'wb') as output:
+        pickle.dump(obj, output, pickle.HIGHEST_PROTOCOL)
+
 df=pd.read_csv("train.csv")
 df2=df[["Insult","Comment"]]
 df2["token"]=df2.apply(lambda x: do_smth(x), axis=1)
 
-cl = NaiveBayesClassifier(list(df2.token.values))
+cl = NaiveBayesClassifier(list(df2.token.values[:2000]))
 
-print cl.classify("Fuck you, stupid moron!!!")
-prob_dist = cl.prob_classify(nltk.word_tokenize("Fuck you, stupid moron!!!"))
-print prob_dist.max()
-print prob_dist.prob("0")
-print prob_dist.prob("1")
+save_object(cl, 'model.pkl')

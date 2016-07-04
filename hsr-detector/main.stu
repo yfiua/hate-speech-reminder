@@ -1,0 +1,6 @@
+@all: model.pkl;
+
+model.pkl: classifier.py train.csv
+{
+    python classifier.py
+}
